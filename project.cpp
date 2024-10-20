@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <fstream> // For file handling
+#include <fstream> 
 using namespace std;
 
 class Student {
@@ -11,7 +11,7 @@ public:
     int req3;
     string placorhighstdy;
     string hosorday;
-    string fulnm, midnm, astnm, ctyorvilg, nation, conform;
+    string midnm, astnm, ctyorvilg, nation, conform;
     string fatnm, motnm, sclnm, clgnm, email, seen, fatacupsn;
     string phnnum[100], pncod[100], dtfbrt, adhar[100], y, momincm;
     string vernm, verfdrnm, vefmtynm, vermal, det, fatincm, momacupsn;
@@ -31,8 +31,8 @@ public:
 };
 
 void finish() {
-    cout<< "YOUR DETAILS ARE SUCCESSFULLY SAVED WITH US";
-    cout << "THANK YOU";
+    cout<< "YOUR DETAILS ARE SUCCESSFULLY SAVED WITH US"<<endl;
+    cout << "THANK YOU"<<endl;
 }
 
 void storeToFile(const string& data) {
@@ -192,215 +192,201 @@ void fees() {
 }
 
 
-void prs_infrmsn() {
+void prs_infrmsn() 
+{
     Student e;    
     cout << "\n\nENTER YOUR DETAILS";
     system("cls");
     
-    cout << "\nNOTE: Please give your details properly";
+    cout << "\nNOTE: Please give your details properly\n";
     getchar();
-    cout << "\nPut 'NULL' if you don't know anything in these.";
+    cout << "Put 'NULL' if you don't know anything in these.\n";
     getchar();
-    
-    cout << "________________" << endl;
-    cout << "\nEnter Your SurName          : ";
-    cin >> e.fulnm;
-    storeToFile("Surname: " + e.fulnm); // Store input
 
-    cout << "Enter your First name        : ";
-    cin >> e.midnm;
-    storeToFile("First Name: " + e.midnm); // Store input
+    cout<<"________________";
+
+
+    cout <<endl<< "Enter your First name        : ";
+    getline(cin, e.midnm);  
+    storeToFile("First Name: " + e.midnm);
 
     cout << "Enter your Last name         : ";
-    cin >> e.astnm;
-    storeToFile("Last Name: " + e.astnm); // Store input
+    getline(cin, e.astnm);  
+    storeToFile("Last Name: " + e.astnm);
 
     cout << "Enter your Blood Group       : ";
-    cin >> e.bldgup;
-    storeToFile("Blood Group: " + e.bldgup); // Store input
+    getline(cin, e.bldgup);
+    storeToFile("Blood Group: " + e.bldgup);
 
     cout << "Enter your Father's name      : ";
-    cin >> e.fatnm;
-    storeToFile("Father's Name: " + e.fatnm); // Store input
+    getline(cin, e.fatnm);
+    storeToFile("Father's Name: " + e.fatnm);
 
     cout << "Enter your Father's occupation: ";
-    cin >> e.fatacupsn;
-    storeToFile("Father's Occupation: " + e.fatacupsn); // Store input
+    getline(cin, e.fatacupsn);
+    storeToFile("Father's Occupation: " + e.fatacupsn);
 
     cout << "Enter your Father's income    : ";
-    cin >> e.fatincm;
-    storeToFile("Father's Income: " + (e.fatincm)); // Store input
+    cin >> e.fatincm; // Assuming it's a float or int
+    storeToFile("Father's Income: " + (e.fatincm));
+
+    cin.ignore(); // Ignore newline before next getline
 
     cout << "Enter your Mother's name      : ";
-    cin >> e.motnm;
-    storeToFile("Mother's Name: " + e.motnm); // Store input
+    getline(cin, e.motnm);
+    storeToFile("Mother's Name: " + e.motnm);
 
     cout << "Enter your Mother's occupation: ";
-    cin >> e.momacupsn;
-    storeToFile("Mother's Occupation: " + e.momacupsn); // Store input
+    getline(cin, e.momacupsn);
+    storeToFile("Mother's Occupation: " + e.momacupsn);
 
     cout << "Enter your Mother's income    : ";
     cin >> e.momincm;
-    storeToFile("Mother's Income: " + (e.momincm)); // Store input
+    storeToFile("Mother's Income: " + (e.momincm));
+
+    cin.ignore(); // Ignore newline before next getline
 
     cout << "Enter your School name       : ";
-    cin >> e.sclnm;
-    storeToFile("School Name: " + e.sclnm); // Store input
+    getline(cin, e.sclnm);
+    storeToFile("School Name: " + e.sclnm);
 
     cout << "Enter your College name      : ";
-    cin >> e.clgnm;
-    storeToFile("College Name: " + e.clgnm); // Store input
+    getline(cin, e.clgnm);
+    storeToFile("College Name: " + e.clgnm);
 
     cout << "Enter your Email address     : ";
-    cin >> e.email;
-    storeToFile("Email Address: " + e.email); // Store input
+    getline(cin, e.email);
+    storeToFile("Email Address: " + e.email);
 
     cout << "Enter your Nationality       : ";
-    cin >> e.nation;
-    storeToFile("Nationality: " + e.nation); // Store input
+    getline(cin, e.nation);
+    storeToFile("Nationality: " + e.nation);
 
     cout << "Enter your City/Village      : ";
-    cin >> e.ctyorvilg;
-    storeToFile("City/Village: " + e.ctyorvilg); // Store input
+    getline(cin, e.ctyorvilg);
+    storeToFile("City/Village: " + e.ctyorvilg);
 
     cout << "Enter your Pin Code          : ";
-    cin >> e.pncod[100];
-    storeToFile("Pin Code: " + e.pncod[100]); // Store input
+    getline(cin, e.pncod[100]); // Using string directly
+    storeToFile("Pin Code: " + e.pncod[100]);
 
     cout << "Enter your Aadhaar Number    : ";
-    cin >> e.adhar[100];
-    storeToFile("Aadhaar Number: " + e.adhar[100]); // Store input
+    getline(cin, e.adhar[100]); // Using string directly
+    storeToFile("Aadhaar Number: " + e.adhar[100]);
 
     cout << "Enter your Contact Number     : ";
-    cin >> e.phnnum[100];
-    storeToFile("Contact Number: " + e.phnnum[100]); // Store input
+    getline(cin, e.phnnum[100]); // Using string directly
+    storeToFile("Contact Number: " + e.phnnum[100]);
 
-    cout << "________________" << endl;
+    cout << "________________\n";
+
+    cout << "\nSUBMISSION OF TC";
+    getchar(); // Optional: Consider using cin.ignore() instead for clarity
+    cout << "\nNOTE: Please Bring the following certificates to the college to complete your verification process!";
+    cout << "\nTransfer Certificate from the previous institution (Original)";
+    cout << "\nConduct certificate (Original)";
+    cout << "\nMigration certificate (Original)";
+    cout << "\nFour passport size photographs";
+    cout << "\nXerox copies of 10th, Inter certificates";
+    getchar();
+    cout << "\nYou are instructed to submit the certificates without fail";
     getchar();
 
     system("cls");
-		cout<<"\nSUBMISSION OF TC";
-		getchar();
-    	cout <<"\nNOTE:Please Bring the following certificates to the collage to complete your verifiaction process!";
-    	cout<<"\n\nTransfer Certificate from the previous institution( Original)";
-    	cout<<"\nConduct certificate (Orginal)";
-    	cout<<"\nMigration certificate (Orginal)";
-    	cout<<"\nFour passport size photographs";
-    	cout<<"\nXerox copies of 10th , Inter  certificates";
-    	getchar();
-    	cout<<"\n\nYou are instructed to submit the certificates without fail";
-    	getchar();
+    char confromdet;
+    cout << "Mail";
+    cout << "\n\nDear Student, Please Check Your details Given Below";
+    cout << "\nFirst Name        : " << e.midnm;
+    cout << "\nLast Name         : " << e.astnm;
+    cout << "\nBlood Group       : " << e.bldgup;
+    cout << "\nFather Name       : " << e.fatnm;
+    cout << "\nFather occupation : " << e.fatacupsn;
+    cout << "\nFather income     : " << e.fatincm;
+    cout << "\nMother name       : " << e.motnm;
+    cout << "\nMother occupation : " << e.momacupsn;
+    cout << "\nMother income     : " << e.momincm;
+    cout << "\nSchool name       : " << e.sclnm;
+    cout << "\nCollege name      : " << e.clgnm;
+    cout << "\nEmail address     : " << e.email;
+    cout << "\nNationality       : " << e.nation;
+    cout << "\nCity / village    : " << e.ctyorvilg;
+    cout << "\nPin Code          : " << e.pncod;
+    cout << "\nAadhaar Number    : " << e.adhar;
+    cout << "\nContact Number    : " << e.phnnum;
+    cout << "\n\nIs Your Details Correct(y/n):  ";
+    cin >> confromdet;
+    cin.ignore(); // Ignore newline after the last cin
 
-		system("cls");
-        char confromdet;
-    	cout<<"Mail";
-		cout<<"\n\nDear Student, Please Check Your details Given Below";
-    	cout <<"\nFull Name         : "<<e.fulnm;
-		cout <<"\nFirst Name        : "<<e.midnm;
-		cout <<"\nLast Name         : "<<e.astnm;
-    	cout <<"\nBlood Group       : "<<e.bldgup;
-        cout <<"\nFather Name       : "<<e.fatnm;
-        cout <<"\nFather occupation : "<<e.fatacupsn;
-        cout <<"\nFather income     : "<<e.fatincm;
-        cout <<"\nMother name       : "<<e.motnm;
-        cout <<"\nMother occupation : "<<e.momacupsn<<e.momacupsn;
-        cout <<"\nMother income     : "<<e.momincm;
-        cout <<"\nSchool name       : "<<e.sclnm;
-        cout <<"\nCollage name      : "<<e.clgnm;
-        cout <<"\nEmail address     : "<<e.email;
-       	cout <<"\nNationality       : "<<e.nation;
-        cout <<"\nCity / village    : "<<e.ctyorvilg;
-        cout <<"\nPin Code          : "<<e.pncod[100];
-        cout <<"\nAadhaar Number    : "<<e.adhar[100];
-        cout <<"\nContact Number    : "<<e.phnnum[100];
-        cout<<"\n\nIs Your Details Correct(y/n): ";
-        cin >> confromdet;
-    	
-        system("cls");
-        if(confromdet == 'y')
-		{	
-        	cout << "\nPlease Continue With the Verification....!";
-        	cout <<"\nEnter Your Ser Name          : ";
-        	cin >> e.vernm;
-        	if (e.vernm == e.fulnm){
-				cout << "Enter your pincode         : ";
-           		cin >> e.verpncd;
-           		if(e.verpncd == e.pncod[100])
-				{
-               		cout << "Enter your Father Name     : ";
-               		cin >> e.verfdrnm;
-               		if(e.verfdrnm == e.fatnm)
-					{
-                   		cout << "Enter your Mother Name     : ";
-                   		cin >> e.vefmtynm;
-                   		if(e.vefmtynm == e.motnm)
-						{
-                      		cout << "Enter your Contact Number  : ";
-                       		cin >> e.verctcnm;
-                       		if(e.verctcnm ==  e.phnnum[100])
-							{
-                           		cout << "Enter your E-mail          : ";
-                           		cin >> e.vermal;
-                           		if(e.vermal == e.email)
-								{
-                               		cout << "Enter your Aadhaar Number  : ";
-                               		cin >> e.veradhar;
-                               		if(e.veradhar == e.adhar[100])
-									{
-										cout<<"Verification Completed.";
-										getchar();
-										getchar();
-										fees();
-                                	}
-                                else{
-            						cout<<"Verication failed";
-            						getchar();
-									getchar();
-            						prs_infrmsn();
-        							}
-                            	}
-                            else{
-            					cout<<"Verication failed";
-            					getchar();
-								getchar();
-            					prs_infrmsn();
-        						}
-                        	}
-                        else{
-            				cout<<"Verication failed";
-            				getchar();
-							getchar();
-            				prs_infrmsn();
-        					}
-                    	}
-                    else{
-            			cout<<"Verication failed";
-            			getchar();
-						getchar();
-            			prs_infrmsn();
-        				}
-                	}
-                else{
-            		cout<<"Verication failed";
-            		getchar();
-					getchar();
-            		prs_infrmsn();
-        			}
-            	}
-            else{
-            	cout<<"Verication failed";
-            	getchar();
-				getchar();
-            	prs_infrmsn();
-            	}
-    	}
-    	else{
-       		cout<<"You have to conform the details.";
-       		prs_infrmsn();
-      	}
-        		
-}}
-
+    system("cls");
+    if (confromdet == 'y') {    
+        cout << "\nPlease Continue With the Verification....!";
+        cout << "\nEnter Your First Name          : ";
+        getline(cin, e.vernm);  
+        if (e.vernm == e.midnm) {
+            cout << "Enter your Pin Code         : ";
+            getline(cin, e.verpncd);
+            if (e.verpncd == e.pncod[100]) {
+                cout << "Enter your Father's Name     : ";
+                getline(cin, e.verfdrnm);
+                if (e.verfdrnm == e.fatnm) {
+                    cout << "Enter your Mother's Name     : ";
+                    getline(cin, e.vefmtynm);
+                    if (e.vefmtynm == e.motnm) {
+                        cout << "Enter your Contact Number    : ";
+                        getline(cin, e.verctcnm);
+                        if (e.verctcnm == e.phnnum[100]) {
+                            cout << "Enter your E-mail            : ";
+                            getline(cin, e.vermal);
+                            if (e.vermal == e.email) {
+                                cout << "Enter your Aadhaar Number    : ";
+                                getline(cin, e.veradhar);
+                                if (e.veradhar == e.adhar[100]) {
+                                    cout << "Verification Completed.";
+                                    getchar();
+                                    getchar();
+                                    fees();
+                                } else {
+                                    cout << "Verification failed";
+                                    getchar();
+                                    getchar();
+                                    prs_infrmsn(); // Restart the process
+                                }
+                            } else {
+                                cout << "Verification failed";
+                                getchar();
+                                getchar();
+                                prs_infrmsn(); // Restart the process
+                            }
+                        } else {
+                            cout << "Verification failed";
+                            getchar();
+                            getchar();
+                            prs_infrmsn(); // Restart the process
+                        }
+                    } else {
+                        cout << "Verification failed";
+                        getchar();
+                        getchar();
+                        prs_infrmsn(); // Restart the process
+                    }
+                } else {
+                    cout << "Verification failed";
+                    getchar();
+                    getchar();
+                    prs_infrmsn(); // Restart the process
+                }
+            } else {
+                cout << "Verification failed";
+                getchar();
+                getchar();
+                prs_infrmsn(); // Restart the process
+            }
+        } else {
+            cout << "You have to confirm the details.";
+            fees(); // Restart the process
+        }        
+    }
+}
 
 
 	void inttmak()
