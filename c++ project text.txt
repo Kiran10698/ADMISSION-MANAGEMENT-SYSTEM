@@ -1,254 +1,484 @@
 #include <iostream>
 #include <vector>
-#include <string>
-#include <fstream>  // For file handling
+#include <fstream> // For file handling
 using namespace std;
 
 class Student {
 public:
+    char morinfm;
     string req1;
     char req2;
     int req3;
     string placorhighstdy;
     string hosorday;
-    string fulnm, midnm, astnm, ctyorvilg, nation;
-    string fatnm, motnm, sclnm, clgnm, email, fatacupsn;
-    string phnnum, pncod, dtfbrt, adhar, momincm;
-    string verfdrnm, vefmtynm, vermal, fatincm, momacupsn;
-    string verpncd, verctcnm, veradhar, bldgup;
-    int th10ovral, th12ovral, th10percentage, th12percentage;
-    string selected_course, selected_branch;  // To store selected course and branch
+    string fulnm, midnm, astnm, ctyorvilg, nation, conform;
+    string fatnm, motnm, sclnm, clgnm, email, seen, fatacupsn;
+    string phnnum[100], pncod[100], dtfbrt, adhar[100], y, momincm;
+    string vernm, verfdrnm, vefmtynm, vermal, det, fatincm, momacupsn;
+    string verpncd, verctcnm, veradhar, thmaks3;
+    string perininter, bldgup;
+};
+
+class Stu {
+private:
+    int id;
+    vector<Student> student_list;
+
+public:
+    void Admisn() {
+        // Admission Management
+    }
 };
 
 void finish() {
-    cout << "Thank you." << endl;
+    cout<< "YOUR DETAILS ARE SUCCESSFULLY SAVED WITH US";
+    cout << "THANK YOU";
 }
 
-void storeToFile(Student& e) {
-    ofstream file;
-    file.open("student_info.txt", ios::app);  // Open file in append mode
-
+void storeToFile(const string& data) {
+    ofstream file("student_details1.txt", ios::app);
     if (file.is_open()) {
-        // Write student details to the file
-        file << "First Name: " << e.fulnm << "\n";
-        file << "Middle Name: " << e.midnm << "\n";
-        file << "Last Name: " << e.astnm << "\n";
-        file << "Blood Group: " << e.bldgup << "\n";
-        file << "Father's Name: " << e.fatnm << "\n";
-        file << "Father's Occupation: " << e.fatacupsn << "\n";
-        file << "Father's Income: " << e.fatincm << "\n";
-        file << "Mother's Name: " << e.motnm << "\n";
-        file << "Mother's Occupation: " << e.momacupsn << "\n";
-        file << "Mother's Income: " << e.momincm << "\n";
-        file << "School Name: " << e.sclnm << "\n";
-        file << "College Name: " << e.clgnm << "\n";
-        file << "Email: " << e.email << "\n";
-        file << "Nationality: " << e.nation << "\n";
-        file << "City/Village: " << e.ctyorvilg << "\n";
-        file << "Pin Code: " << e.pncod << "\n";
-        file << "Aadhaar Number: " << e.adhar << "\n";
-        file << "Contact Number: " << e.phnnum << "\n";
-        file << "Marks in 10th: " << e.th10ovral << " (Percentage: " << e.th10percentage << "%)\n";
-        file << "Marks in 12th: " << e.th12ovral << " (Percentage: " << e.th12percentage << "%)\n";
-        file << "Selected Course: " << e.selected_course << "\n";
-        file << "Selected Branch: " << e.selected_branch << "\n";
-
-        // Write additional information
-        if (!e.req1.empty()) {
-            file << "Dream: " << e.req1 << "\n";
-        }
-        if (e.req2 == 'y') {
-            file << "Number of Programming Languages Known: " << e.req3 << "\n";
-        }
-        file << "Placement or Higher Studies Preference: " << e.placorhighstdy << "\n";
-        file << "Hostel or Day Scholar: " << e.hosorday << "\n";
-
-        file << "\n---------------------------------\n\n";  // Divider between records
-        file.close();  // Close the file after writing
-
-        cout << "Student information successfully saved in student_info.txt.\n";  // Success message
+        file << data << endl;
+        file.close();
     } else {
-        cout << "Unable to open file to store data." << endl;
+        cout << "Unable to open file.";
     }
 }
 
-void moreinform(Student& e) {
+void moreinform() {
+    Student e;
     char morinfm;
-    cout << "\nDo you like to give more information about yourself (y/n): ";
+    system("cls");
+    cout << "\nDo you like to give more information about yourself(y/n): ";
     cin >> morinfm;
-    cin.ignore();  // To ignore newline character after 'cin'
+    storeToFile("More info: " + string(1, morinfm)); // Store input
 
     if (morinfm == 'y') {
         cout << "What is your dream: ";
-        getline(cin, e.req1);
+        cin >> e.req1;
+        storeToFile("Dream: " + e.req1); // Store input
 
-        cout << "Have you learned any programming languages (y/n): ";
+        cout << "Have you learned any programming languages(y/n): ";
         cin >> e.req2;
-        cin.ignore();
+        storeToFile("Knows programming: " + string(1, e.req2)); // Store input
 
         if (e.req2 == 'y') {
             cout << "How many languages do you know: ";
             cin >> e.req3;
-            cin.ignore();
+            storeToFile("Number of languages: " + to_string(e.req3)); // Store input
+
+            cout << "\nDo you like to go with (Placements / higherStudyes): ";
+            cin >> e.placorhighstdy;
+            storeToFile("Placements or Higher Studies: " + e.placorhighstdy); // Store input
+
+            cout << "\nWhat is your preference (Hostler / Dayscholar): ";
+            cin >> e.hosorday;
+            storeToFile("Hostler or Dayscholar: " + e.hosorday); // Store input
+
+            finish();
+        } else {
+            cout << "Don't worry, We Try to help you.";
+            cout << "\nDo you like to go with (Placements / higherStudyes): ";
+            cin >> e.placorhighstdy;
+            storeToFile("Placements or Higher Studies: " + e.placorhighstdy); // Store input
+
+            cout << "\nWhat is your preference (Hostler / Dayscholar): ";
+            cin >> e.hosorday;
+            storeToFile("Hostler or Dayscholar: " + e.hosorday); // Store input
+
+            finish();
         }
-
-        cout << "\nDo you like to go with (Placements / higherStudies): ";
-        getline(cin, e.placorhighstdy);
-
-        cout << "\nWhat is your Preference (Hostler / Day scholar): ";
-        getline(cin, e.hosorday);
+    } else {
+        finish();
     }
-    storeToFile(e);  // Store the data in the file after collecting additional info
-    finish();
 }
 
-void select_branch(Student& e) {
-    int branch_choice;
-    cout << "\nBRANCHES:\n";
-    cout << "1. Computer Science and Engineering (CSE)\n";
-    cout << "2. Electronics and Communication Engineering (ECE)\n";
-    cout << "3. Electrical and Electronics Engineering (EEE)\n";
-    cout << "4. Civil Engineering\n";
-    cout << "5. Mechanical Engineering\n";
-    cout << "Select your branch: ";
-    cin >> branch_choice;
-    cin.ignore();
-
-    switch (branch_choice) {
-        case 1:
-            e.selected_branch = "Computer Science and Engineering (CSE)";
-            break;
-        case 2:
-            e.selected_branch = "Electronics and Communication Engineering (ECE)";
-            break;
-        case 3:
-            e.selected_branch = "Electrical and Electronics Engineering (EEE)";
-            break;
-        case 4:
-            e.selected_branch = "Civil Engineering";
-            break;
-        case 5:
-            e.selected_branch = "Mechanical Engineering";
-            break;
-        default:
-            cout << "Invalid choice. Please select a valid branch.\n";
-            select_branch(e);  // Re-prompt in case of invalid input
-            return;
-    }
-    moreinform(e);  // Continue with more information after branch selection
-}
-
-void fees(Student& e) {
+void fees() {
     int interest;
+    string bnch, spilijsn;
+    system("cls");
     cout << "\nCOURSES";
-    cout << "\n1. B.SC\n2. B.E\n3. B.Tech\n4. B.A\n5. BBA\n6. B.Com";
-    cout << "\nSelect the course you are interested in: ";
+    cout << "\n1. B.Sc\n2. B.E/B.Tech\n3. B.A\n4. BBA\n5. B.Com";
+    cout << "\nSelect the course which you are interested in: ";
     cin >> interest;
-    cin.ignore();
+    storeToFile("Selected Course: " + to_string(interest)); // Store selected course
 
     switch (interest) {
         case 1:
-            e.selected_course = "B.SC (3 years, Rs.2.65L per annum)";
+            cout << "\nB.Sc Course is for 3 years";
+            cout << "\nB.Sc Course Fees Per Annum: Rs.2.65L\n";
+            cout << "\nAvailable Branches: \n1. Physics\n2. Chemistry\n3. Mathematics\n4. Computer Science\n5. Biology";
+            cout << "\nEnter the branch of your course: ";
+            cin >> bnch;
+            storeToFile("Branch: " + bnch); // Store selected branch
+
+            cout << "\nAvailable Specializations: \n1. Astrophysics\n2. Biochemistry\n3. Data Science\n4. Biotechnology\n5. Nanotechnology";
+            cout << "\nEnter the specialization you want to pursue: ";
+            cin >> spilijsn;
+            storeToFile("Specialization: " + spilijsn); // Store selected specialization
+
+            moreinform();
             break;
+
         case 2:
-            e.selected_course = "B.E (4 years, Rs.3.65L per annum)";
+            cout << "\nB.E/B.Tech Course is for 4 years";
+            cout << "\nB.E/B.Tech Course Fees Per Annum: Rs.3.65L\n";
+            cout << "\nAvailable Branches: \n1. Civil Engineering\n2. Mechanical Engineering\n3. Electrical Engineering\n4. Computer Science Engineering\n5. Electronics and Communication Engineering\n6. Information Technology\n7. Chemical Engineering\n8. Aeronautical Engineering";
+            cout << "\nEnter the branch of your course: ";
+            cin >> bnch;
+            storeToFile("Branch: " + bnch); // Store selected branch
+
+            cout << "\nAvailable Specializations: \n1. Structural Engineering\n2. Robotics\n3. Embedded Systems\n4. Power Systems\n5. Machine Learning\n6. Artificial Intelligence\n7. Cybersecurity\n8. Renewable Energy";
+            cout << "\nEnter the specialization you want to pursue: ";
+            cin >> spilijsn;
+            storeToFile("Specialization: " + spilijsn); // Store selected specialization
+
+            moreinform();
             break;
+
         case 3:
-            e.selected_course = "B.Tech (4 years, Rs.3.65L per annum)";
+            cout << "\nB.A Course is for 3 years";
+            cout << "\nB.A Course Fees Per Annum: Rs.2.65L\n";
+            cout << "\nAvailable Branches: \n1. History\n2. Sociology\n3. Psychology\n4. English Literature\n5. Political Science";
+            cout << "\nEnter the branch of your course: ";
+            cin >> bnch;
+            storeToFile("Branch: " + bnch); // Store selected branch
+
+            cout << "\nAvailable Specializations: \n1. International Relations\n2. Organizational Psychology\n3. Linguistics\n4. Public Policy\n5. Cultural Studies";
+            cout << "\nEnter the specialization you want to pursue: ";
+            cin >> spilijsn;
+            storeToFile("Specialization: " + spilijsn); // Store selected specialization
+
+            moreinform();
             break;
+
         case 4:
-            e.selected_course = "B.A (3 years, Rs.2.65L per annum)";
+            cout << "\nBBA Course is for 3 years";
+            cout << "\nBBA Course Fees Per Annum: Rs.4.65L\n";
+            cout << "\nAvailable Branches: \n1. Finance\n2. Marketing\n3. Human Resources\n4. International Business\n5. Operations Management";
+            cout << "\nEnter the branch of your course: ";
+            cin >> bnch;
+            storeToFile("Branch: " + bnch); // Store selected branch
+
+            cout << "\nAvailable Specializations: \n1. Digital Marketing\n2. Supply Chain Management\n3. Financial Analytics\n4. Entrepreneurship\n5. Business Analytics";
+            cout << "\nEnter the specialization you want to pursue: ";
+            cin >> spilijsn;
+            storeToFile("Specialization: " + spilijsn); // Store selected specialization
+
+            moreinform();
             break;
+
         case 5:
-            e.selected_course = "BBA (3 years, Rs.4.65L per annum)";
+            cout << "\nB.Com Course is for 3 years";
+            cout << "\nB.Com Course Fees Per Annum: Rs.4.65L\n";
+            cout << "\nAvailable Branches: \n1. Accounting\n2. Economics\n3. Taxation\n4. Banking and Insurance\n5. Business Law";
+            cout << "\nEnter the branch of your course: ";
+            cin >> bnch;
+            storeToFile("Branch: " + bnch); // Store selected branch
+
+            cout << "\nAvailable Specializations: \n1. Auditing\n2. Investment Banking\n3. Financial Accounting\n4. International Trade\n5. Corporate Law";
+            cout << "\nEnter the specialization you want to pursue: ";
+            cin >> spilijsn;
+            storeToFile("Specialization: " + spilijsn); // Store selected specialization
+
+            moreinform();
             break;
-        case 6:
-            e.selected_course = "B.Com (3 years, Rs.4.65L per annum)";
-            break;
+
         default:
-            cout << "Invalid course selection.\n";
-            fees(e);  // Re-prompt for valid course selection
-            return;
+            cout << "We can't find any Course";
+            system("cls");
+            fees(); // Restart the function for invalid input
     }
-
-    select_branch(e);  // Ask user to select the branch after course selection
 }
 
-void prs_infrmsn(Student& e) {
+
+void prs_infrmsn() {
+    Student e;    
     cout << "\n\nENTER YOUR DETAILS";
-    cout << "\nPut 'NULL' if you don't know any information.";
-    cout << "\n________________";
-
-    cout << "\nEnter Your First Name: ";
+    system("cls");
+    
+    cout << "\nNOTE: Please give your details properly";
+    getchar();
+    cout << "\nPut 'NULL' if you don't know anything in these.";
+    getchar();
+    
+    cout << "________________" << endl;
+    cout << "\nEnter Your SurName          : ";
     cin >> e.fulnm;
-    cout << "Enter your Middle Name: ";
+    storeToFile("Surname: " + e.fulnm); // Store input
+
+    cout << "Enter your First name        : ";
     cin >> e.midnm;
-    cout << "Enter your Last Name: ";
+    storeToFile("First Name: " + e.midnm); // Store input
+
+    cout << "Enter your Last name         : ";
     cin >> e.astnm;
-    cout << "Enter your Blood Group: ";
+    storeToFile("Last Name: " + e.astnm); // Store input
+
+    cout << "Enter your Blood Group       : ";
     cin >> e.bldgup;
-    cout << "Enter your Father's Name: ";
+    storeToFile("Blood Group: " + e.bldgup); // Store input
+
+    cout << "Enter your Father's name      : ";
     cin >> e.fatnm;
-    cout << "Enter your Father's Occupation: ";
+    storeToFile("Father's Name: " + e.fatnm); // Store input
+
+    cout << "Enter your Father's occupation: ";
     cin >> e.fatacupsn;
-    cout << "Enter your Father's Income: ";
+    storeToFile("Father's Occupation: " + e.fatacupsn); // Store input
+
+    cout << "Enter your Father's income    : ";
     cin >> e.fatincm;
-    cout << "Enter your Mother's Name: ";
+    storeToFile("Father's Income: " + (e.fatincm)); // Store input
+
+    cout << "Enter your Mother's name      : ";
     cin >> e.motnm;
-    cout << "Enter your Mother's Occupation: ";
+    storeToFile("Mother's Name: " + e.motnm); // Store input
+
+    cout << "Enter your Mother's occupation: ";
     cin >> e.momacupsn;
-    cout << "Enter your Mother's Income: ";
+    storeToFile("Mother's Occupation: " + e.momacupsn); // Store input
+
+    cout << "Enter your Mother's income    : ";
     cin >> e.momincm;
-    cout << "Enter your School Name: ";
+    storeToFile("Mother's Income: " + (e.momincm)); // Store input
+
+    cout << "Enter your School name       : ";
     cin >> e.sclnm;
-    cout << "Enter your College Name: ";
+    storeToFile("School Name: " + e.sclnm); // Store input
+
+    cout << "Enter your College name      : ";
     cin >> e.clgnm;
-    cout << "Enter your Email Address: ";
+    storeToFile("College Name: " + e.clgnm); // Store input
+
+    cout << "Enter your Email address     : ";
     cin >> e.email;
-    cout << "Enter your Nationality: ";
+    storeToFile("Email Address: " + e.email); // Store input
+
+    cout << "Enter your Nationality       : ";
     cin >> e.nation;
-    cout << "Enter your City/Village: ";
+    storeToFile("Nationality: " + e.nation); // Store input
+
+    cout << "Enter your City/Village      : ";
     cin >> e.ctyorvilg;
-    cout << "Enter your Pin Code: ";
-    cin >> e.pncod;
-    cout << "Enter your Aadhaar Number: ";
-    cin >> e.adhar;
-    cout << "Enter your Contact Number: ";
-    cin >> e.phnnum;
+    storeToFile("City/Village: " + e.ctyorvilg); // Store input
 
-    fees(e);  // Proceed to course and fee details
-}
+    cout << "Enter your Pin Code          : ";
+    cin >> e.pncod[100];
+    storeToFile("Pin Code: " + e.pncod[100]); // Store input
 
-void tenmarks(Student& e) {
-    cout << "ENTER YOUR 10th MARKS\n";
-    cout << "The marks obtained in overall out of 600: ";
-    cin >> e.th10ovral;
+    cout << "Enter your Aadhaar Number    : ";
+    cin >> e.adhar[100];
+    storeToFile("Aadhaar Number: " + e.adhar[100]); // Store input
 
-    if (e.th10ovral >= 210) {
-        e.th10percentage = (e.th10ovral * 100) / 600;
-        cout << "Your percentage in 10th: " << e.th10percentage << "%\n";
-    } else {
-        cout << "You need to score above 210 marks for admission.\n";
-        tenmarks(e);  // Re-prompt if marks are invalid
-        return;
-    }
+    cout << "Enter your Contact Number     : ";
+    cin >> e.phnnum[100];
+    storeToFile("Contact Number: " + e.phnnum[100]); // Store input
 
-    cout << "\nENTER YOUR 12th MARKS\n";
-    cout << "The marks obtained in overall out of 1000: ";
-    cin >> e.th12ovral;
+    cout << "________________" << endl;
+    getchar();
 
-    if (e.th12ovral >= 220) {
-        e.th12percentage = (e.th12ovral * 100) / 1000;
-        cout << "Your percentage in 12th: " << e.th12percentage << "%\n";
-        prs_infrmsn(e);  // Proceed to personal information after valid marks
-    } else {
-        cout << "You need to score above 220 marks for admission.\n";
-        tenmarks(e);  // Re-prompt if marks are invalid
-    }
-}
+    system("cls");
+		cout<<"\nSUBMISSION OF TC";
+		getchar();
+    	cout <<"\nNOTE:Please Bring the following certificates to the collage to complete your verifiaction process!";
+    	cout<<"\n\nTransfer Certificate from the previous institution( Original)";
+    	cout<<"\nConduct certificate (Orginal)";
+    	cout<<"\nMigration certificate (Orginal)";
+    	cout<<"\nFour passport size photographs";
+    	cout<<"\nXerox copies of 10th , Inter  certificates";
+    	getchar();
+    	cout<<"\n\nYou are instructed to submit the certificates without fail";
+    	getchar();
+
+		system("cls");
+        char confromdet;
+    	cout<<"Mail";
+		cout<<"\n\nDear Student, Please Check Your details Given Below";
+    	cout <<"\nFull Name         : "<<e.fulnm;
+		cout <<"\nFirst Name        : "<<e.midnm;
+		cout <<"\nLast Name         : "<<e.astnm;
+    	cout <<"\nBlood Group       : "<<e.bldgup;
+        cout <<"\nFather Name       : "<<e.fatnm;
+        cout <<"\nFather occupation : "<<e.fatacupsn;
+        cout <<"\nFather income     : "<<e.fatincm;
+        cout <<"\nMother name       : "<<e.motnm;
+        cout <<"\nMother occupation : "<<e.momacupsn<<e.momacupsn;
+        cout <<"\nMother income     : "<<e.momincm;
+        cout <<"\nSchool name       : "<<e.sclnm;
+        cout <<"\nCollage name      : "<<e.clgnm;
+        cout <<"\nEmail address     : "<<e.email;
+       	cout <<"\nNationality       : "<<e.nation;
+        cout <<"\nCity / village    : "<<e.ctyorvilg;
+        cout <<"\nPin Code          : "<<e.pncod[100];
+        cout <<"\nAadhaar Number    : "<<e.adhar[100];
+        cout <<"\nContact Number    : "<<e.phnnum[100];
+        cout<<"\n\nIs Your Details Correct(y/n): ";
+        cin >> confromdet;
+    	
+        system("cls");
+        if(confromdet == 'y')
+		{	
+        	cout << "\nPlease Continue With the Verification....!";
+        	cout <<"\nEnter Your Ser Name          : ";
+        	cin >> e.vernm;
+        	if (e.vernm == e.fulnm){
+				cout << "Enter your pincode         : ";
+           		cin >> e.verpncd;
+           		if(e.verpncd == e.pncod[100])
+				{
+               		cout << "Enter your Father Name     : ";
+               		cin >> e.verfdrnm;
+               		if(e.verfdrnm == e.fatnm)
+					{
+                   		cout << "Enter your Mother Name     : ";
+                   		cin >> e.vefmtynm;
+                   		if(e.vefmtynm == e.motnm)
+						{
+                      		cout << "Enter your Contact Number  : ";
+                       		cin >> e.verctcnm;
+                       		if(e.verctcnm ==  e.phnnum[100])
+							{
+                           		cout << "Enter your E-mail          : ";
+                           		cin >> e.vermal;
+                           		if(e.vermal == e.email)
+								{
+                               		cout << "Enter your Aadhaar Number  : ";
+                               		cin >> e.veradhar;
+                               		if(e.veradhar == e.adhar[100])
+									{
+										cout<<"Verification Completed.";
+										getchar();
+										getchar();
+										fees();
+                                	}
+                                else{
+            						cout<<"Verication failed";
+            						getchar();
+									getchar();
+            						prs_infrmsn();
+        							}
+                            	}
+                            else{
+            					cout<<"Verication failed";
+            					getchar();
+								getchar();
+            					prs_infrmsn();
+        						}
+                        	}
+                        else{
+            				cout<<"Verication failed";
+            				getchar();
+							getchar();
+            				prs_infrmsn();
+        					}
+                    	}
+                    else{
+            			cout<<"Verication failed";
+            			getchar();
+						getchar();
+            			prs_infrmsn();
+        				}
+                	}
+                else{
+            		cout<<"Verication failed";
+            		getchar();
+					getchar();
+            		prs_infrmsn();
+        			}
+            	}
+            else{
+            	cout<<"Verication failed";
+            	getchar();
+				getchar();
+            	prs_infrmsn();
+            	}
+    	}
+    	else{
+       		cout<<"You have to conform the details.";
+       		prs_infrmsn();
+      	}
+        		
+}}
+
+
+
+	void inttmak()
+	{
+    	int intovral1,percentage3;
+        cout<<"\n\n\nENTER THE MARKS OBTAINED IN 12th!\n";
+        cout<<"______________";
+        cout<<"\nEnter the Overall marks(Total): ";
+        cin>>intovral1;
+        if(intovral1>100){
+        	cout<<"Enter your percentage         : ";
+			cin>>percentage3;
+			if(percentage3>30){
+				prs_infrmsn();
+			}
+			else{
+				cout<<"\nEntered Wrong Percentage marks....";
+				cout<<"\nPress enter to continue.";
+				getchar();
+				getchar();
+				inttmak();
+			}
+		}
+		else{
+			cout<<"\nEntered Wrong Overall Marks.....";
+			cout<<"\nPress enter to continue.";
+			getchar();
+			getchar();
+			inttmak();
+		}
+		cout<<"______________";
+			
+	}
+	void tenmarks()
+	{
+		int thovral,percentage;
+		cout<<"\n\n\nENTER THE MARKS OBTAINED IN 10th!\n";
+        cout<<"______________";
+        cout<<"\nEnter the Overall marks(Total): ";
+        cin>>thovral;
+        if(thovral>100){
+        	cout<<"Enter your percentage         : ";
+			cin>>percentage;
+			if(percentage>30){
+				inttmak();
+			}
+			else{
+				cout<<"\nEntered Wrong Percentage marks.....";
+				cout<<"\nPress enter to continue.";
+				getchar();
+				getchar();
+				tenmarks();
+			}
+		}
+		else{
+			cout<<"\nEntered Wrong Overall Marks.....";
+			cout<<"\nPress enter to continue.";
+			getchar();
+			getchar();
+			tenmarks();
+		}
+	}
 
 int main() {
-    Student e;
-    tenmarks(e);  // Start the program by asking for 10th and 12th marks
+    char thmaks;
+    cout<<"\nENTER DETAILS OF ACADEMIC QUALIFICATIONS"<<endl;
+    cout << "\nDid you get your 10th and 12th marks(y/n): ";
+    cin >> thmaks;
+    storeToFile("10th and 12th Marks Status: " + string(1, thmaks)); // Store input
+
+    system("cls");
+    if (thmaks == 'y') {
+        tenmarks();
+    } else {
+        cout << "\nPLEASE CONTINUE THIS PROCESS AFTER GETTING YOUR 10th AND 12th MARKS!!!\n";
+        getchar();
+        exit(0);
+    }
+
     return 0;
 }
