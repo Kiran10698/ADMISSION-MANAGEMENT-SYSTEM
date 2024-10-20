@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <fstream>  // For file handling
 using namespace std;
 
 class Student {
@@ -15,27 +16,63 @@ public:
     string phnnum, pncod, dtfbrt, adhar, momincm;
     string verfdrnm, vefmtynm, vermal, fatincm, momacupsn;
     string verpncd, verctcnm, veradhar, bldgup;
-};
-
-static int count_id = 1;
-
-class Stu {
-private:
-    int id;
-    vector<Student> student_list;
-
-public:
-    void Admisn() {
-        // Admission Management (currently not implemented)
-    }
+    int th10ovral, th12ovral, th10percentage, th12percentage;
+    string selected_course, selected_branch;  // To store selected course and branch
 };
 
 void finish() {
     cout << "Thank you." << endl;
 }
 
-void moreinform() {
-    Student e;
+void storeToFile(Student& e) {
+    ofstream file;
+    file.open("student_info.txt", ios::app);  // Open file in append mode
+
+    if (file.is_open()) {
+        // Write student details to the file
+        file << "First Name: " << e.fulnm << "\n";
+        file << "Middle Name: " << e.midnm << "\n";
+        file << "Last Name: " << e.astnm << "\n";
+        file << "Blood Group: " << e.bldgup << "\n";
+        file << "Father's Name: " << e.fatnm << "\n";
+        file << "Father's Occupation: " << e.fatacupsn << "\n";
+        file << "Father's Income: " << e.fatincm << "\n";
+        file << "Mother's Name: " << e.motnm << "\n";
+        file << "Mother's Occupation: " << e.momacupsn << "\n";
+        file << "Mother's Income: " << e.momincm << "\n";
+        file << "School Name: " << e.sclnm << "\n";
+        file << "College Name: " << e.clgnm << "\n";
+        file << "Email: " << e.email << "\n";
+        file << "Nationality: " << e.nation << "\n";
+        file << "City/Village: " << e.ctyorvilg << "\n";
+        file << "Pin Code: " << e.pncod << "\n";
+        file << "Aadhaar Number: " << e.adhar << "\n";
+        file << "Contact Number: " << e.phnnum << "\n";
+        file << "Marks in 10th: " << e.th10ovral << " (Percentage: " << e.th10percentage << "%)\n";
+        file << "Marks in 12th: " << e.th12ovral << " (Percentage: " << e.th12percentage << "%)\n";
+        file << "Selected Course: " << e.selected_course << "\n";
+        file << "Selected Branch: " << e.selected_branch << "\n";
+
+        // Write additional information
+        if (!e.req1.empty()) {
+            file << "Dream: " << e.req1 << "\n";
+        }
+        if (e.req2 == 'y') {
+            file << "Number of Programming Languages Known: " << e.req3 << "\n";
+        }
+        file << "Placement or Higher Studies Preference: " << e.placorhighstdy << "\n";
+        file << "Hostel or Day Scholar: " << e.hosorday << "\n";
+
+        file << "\n---------------------------------\n\n";  // Divider between records
+        file.close();  // Close the file after writing
+
+        cout << "Student information successfully saved in student_info.txt.\n";  // Success message
+    } else {
+        cout << "Unable to open file to store data." << endl;
+    }
+}
+
+void moreinform(Student& e) {
     char morinfm;
     cout << "\nDo you like to give more information about yourself (y/n): ";
     cin >> morinfm;
@@ -58,32 +95,14 @@ void moreinform() {
         cout << "\nDo you like to go with (Placements / higherStudies): ";
         getline(cin, e.placorhighstdy);
 
-        if (e.placorhighstdy == "Placements") {
-            cout << "You have chosen to go with Placements.\n";
-        } else if (e.placorhighstdy == "higherStudies") {
-            cout << "You have chosen to go with Higher Studies.\n";
-        } else {
-            cout << "Invalid choice for Placements or Higher Studies.\n";
-        }
-
         cout << "\nWhat is your Preference (Hostler / Day scholar): ";
         getline(cin, e.hosorday);
-
-        if (e.hosorday == "Hostler") {
-            cout << "You have chosen to be a Hostler.\n";
-        } else if (e.hosorday == "Day scholar") {
-            cout << "You have chosen to be a Day scholar.\n";
-        } else {
-            cout << "Invalid choice for Hostler or Day scholar.\n";
-        }
-
-        finish();
-    } else {
-        finish();
     }
+    storeToFile(e);  // Store the data in the file after collecting additional info
+    finish();
 }
 
-void select_branch() {
+void select_branch(Student& e) {
     int branch_choice;
     cout << "\nBRANCHES:\n";
     cout << "1. Computer Science and Engineering (CSE)\n";
@@ -97,29 +116,29 @@ void select_branch() {
 
     switch (branch_choice) {
         case 1:
-            cout << "You selected CSE branch.\n";
+            e.selected_branch = "Computer Science and Engineering (CSE)";
             break;
         case 2:
-            cout << "You selected ECE branch.\n";
+            e.selected_branch = "Electronics and Communication Engineering (ECE)";
             break;
         case 3:
-            cout << "You selected EEE branch.\n";
+            e.selected_branch = "Electrical and Electronics Engineering (EEE)";
             break;
         case 4:
-            cout << "You selected Civil Engineering branch.\n";
+            e.selected_branch = "Civil Engineering";
             break;
         case 5:
-            cout << "You selected Mechanical Engineering branch.\n";
+            e.selected_branch = "Mechanical Engineering";
             break;
         default:
             cout << "Invalid choice. Please select a valid branch.\n";
-            select_branch();  // Re-prompt in case of invalid input
+            select_branch(e);  // Re-prompt in case of invalid input
             return;
     }
-    moreinform();  // Continue with more information after branch selection
+    moreinform(e);  // Continue with more information after branch selection
 }
 
-void fees() {
+void fees(Student& e) {
     int interest;
     cout << "\nCOURSES";
     cout << "\n1. B.SC\n2. B.E\n3. B.Tech\n4. B.A\n5. BBA\n6. B.Com";
@@ -129,40 +148,33 @@ void fees() {
 
     switch (interest) {
         case 1:
-            cout << "\nB.SC Course is for 3 years";
-            cout << "\nB.SC Course Fees For Annum: Rs.2.65L\n";
+            e.selected_course = "B.SC (3 years, Rs.2.65L per annum)";
             break;
         case 2:
-            cout << "\nB.E Course is for 4 years";
-            cout << "\nB.E Course Fees For Annum: Rs.3.65L\n";
+            e.selected_course = "B.E (4 years, Rs.3.65L per annum)";
             break;
         case 3:
-            cout << "\nB.Tech Course is for 4 years";
-            cout << "\nB.Tech Course Fees For Annum: Rs.3.65L\n";
+            e.selected_course = "B.Tech (4 years, Rs.3.65L per annum)";
             break;
         case 4:
-            cout << "\nB.A Course is for 3 years";
-            cout << "\nB.A Course Fees For Annum: Rs.2.65L\n";
+            e.selected_course = "B.A (3 years, Rs.2.65L per annum)";
             break;
         case 5:
-            cout << "\nBBA Course is for 3 years";
-            cout << "\nBBA Course Fees For Annum: Rs.4.65L\n";
+            e.selected_course = "BBA (3 years, Rs.4.65L per annum)";
             break;
         case 6:
-            cout << "\nB.Com Course is for 3 years";
-            cout << "\nB.Com Course Fees For Annum: Rs.4.65L\n";
+            e.selected_course = "B.Com (3 years, Rs.4.65L per annum)";
             break;
         default:
-            cout << "We can't find any course.";
-            fees();  // Re-prompt for valid course selection
+            cout << "Invalid course selection.\n";
+            fees(e);  // Re-prompt for valid course selection
             return;
     }
 
-    select_branch();  // Ask user to select the branch after course selection
+    select_branch(e);  // Ask user to select the branch after course selection
 }
 
-void prs_infrmsn() {
-    Student e;
+void prs_infrmsn(Student& e) {
     cout << "\n\nENTER YOUR DETAILS";
     cout << "\nPut 'NULL' if you don't know any information.";
     cout << "\n________________";
@@ -203,67 +215,40 @@ void prs_infrmsn() {
     cin >> e.adhar;
     cout << "Enter your Contact Number: ";
     cin >> e.phnnum;
-    getchar();  // Clear newline
 
-    fees();  // Proceed to fees and branch selection
+    fees(e);  // Proceed to course and fee details
 }
 
-void tenmarks() {
-    int th10ovral, th12ovral, th10percentage, th12percentage;
-    
-    // Get 10th Marks
-    cout << "\n\nENTER THE MARKS OBTAINED IN 10th!\n";
-    cout << "Enter the Overall Marks (Total): ";
-    cin >> th10ovral;
+void tenmarks(Student& e) {
+    cout << "ENTER YOUR 10th MARKS\n";
+    cout << "The marks obtained in overall out of 600: ";
+    cin >> e.th10ovral;
 
-    if (th10ovral > 100) {
-        cout << "Enter your 10th Percentage: ";
-        cin >> th10percentage;
-        if (th10percentage <= 30) {
-            cout << "\nEntered wrong percentage marks for 10th.";
-            tenmarks();  // Re-prompt for valid 10th marks input
-            return;
-        }
+    if (e.th10ovral >= 210) {
+        e.th10percentage = (e.th10ovral * 100) / 600;
+        cout << "Your percentage in 10th: " << e.th10percentage << "%\n";
     } else {
-        cout << "\nEntered wrong overall marks for 10th.";
-        tenmarks();  // Re-prompt for valid 10th marks input
+        cout << "You need to score above 210 marks for admission.\n";
+        tenmarks(e);  // Re-prompt if marks are invalid
         return;
     }
 
-    // Get 12th Marks
-    cout << "\n\nENTER THE MARKS OBTAINED IN 12th!\n";
-    cout << "Enter the Overall Marks (Total): ";
-    cin >> th12ovral;
+    cout << "\nENTER YOUR 12th MARKS\n";
+    cout << "The marks obtained in overall out of 1000: ";
+    cin >> e.th12ovral;
 
-    if (th12ovral > 100) {
-        cout << "Enter your 12th Percentage: ";
-        cin >> th12percentage;
-        if (th12percentage <= 30) {
-            cout << "\nEntered wrong percentage marks for 12th.";
-            tenmarks();  // Re-prompt for valid 12th marks input
-            return;
-        }
+    if (e.th12ovral >= 220) {
+        e.th12percentage = (e.th12ovral * 100) / 1000;
+        cout << "Your percentage in 12th: " << e.th12percentage << "%\n";
+        prs_infrmsn(e);  // Proceed to personal information after valid marks
     } else {
-        cout << "\nEntered wrong overall marks for 12th.";
-        tenmarks();  // Re-prompt for valid 12th marks input
-        return;
+        cout << "You need to score above 220 marks for admission.\n";
+        tenmarks(e);  // Re-prompt if marks are invalid
     }
-
-    prs_infrmsn();  // Proceed to personal information input
 }
 
 int main() {
-    char infrmatn;
-    cout << "Welcome to the Student Admission System\n";
-    cout << "_______________________________";
-    cout << "\nDo you want to enter marks (y/n): ";
-    cin >> infrmatn;
-
-    if (infrmatn == 'y') {
-        tenmarks();
-    } else {
-        prs_infrmsn();  // Skip marks entry and go to personal information
-    }
-
+    Student e;
+    tenmarks(e);  // Start the program by asking for 10th and 12th marks
     return 0;
 }
